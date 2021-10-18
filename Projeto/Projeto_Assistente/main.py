@@ -80,9 +80,24 @@ def run():
         #             talk(f'abrindo {file}')
         
         #codigo para escrever no bloco de notas 
-        # elif 'escrever' in rec:
-        #     try:
-        #         with open("")
+        elif 'escrever' in rec:
+            try:
+                with open("anotações.txt","r") as f:
+                    write(f)
+            except FileNotFoundError as e :
+                file=open("anotações.txt","w")
+                write(file)
+        elif "termina" in rec:
+            talk ("adios!")
+            break
+def write(f):
+    talk("O que voce deseja escrever?")
+    rec_write=listen()
+    f.write(rec_write+ os.linesep)
+    f.close()
+    talk("tudo pronto, você pode revisar")
+    sub.Popen("anotações.txt",shell=True)
+
     
 if __name__=='__main__':
     run()
