@@ -10,6 +10,7 @@ engine=pyttsx3.init()
 voices=engine.getProperty('voices')
 
 engine.setProperty('voice',voices[0].id)
+engine.setProperty('rate',185)
 
 sites={
     'google':'google.com',
@@ -17,30 +18,36 @@ sites={
     'facebook':'facebook.com',
     'faculdade':'impacta.edu.br'
 }
+programas={
+    'steam':r"C:\Program Files\steam\Steam.exe"
 
+
+}
 def talk(text):
     engine.say(text)
     engine.runAndWait()
 
 def listen():
-    
     try:
         with sr.Microphone() as source:
             print("escutando...")
             pc=listener.listen(source)
             rec=listener.recognize_google(pc,language='pt-br')
+            print(rec)
             rec=rec.lower()
             if name in rec:
-                rec=rec.replace(name,"")
-        
+                rec=rec.replace(name,"") 
     except:
+        print("Erro no sistema")
         pass
+    print(rec)
     return rec
 
 def run():
+    print("0")
     while True:
         rec=listen()
-        if "video" in rec:#falar "ok"  depois o que voce precisa
+        if "Reprodurir" in rec:#falar "falar"  depois o que voce precisa
             music=rec.replace("video",'')
             print('Reprodurindo'+ music)
             talk("Reproduzindo "+ music)# a voz da assistente
@@ -48,13 +55,13 @@ def run():
 
         elif "buscar" in rec:
             buscar=rec.replace("buscar ", "")
-            wikipedia.set_lang('es')
+            wikipedia.set_lang('pt')
             wiki=wikipedia.summary(buscar,2)
             print(buscar+": " + wiki)
             talk (wiki)
-        
+        #melhor o codigo 
         elif "alarme " in rec:
-            num =rec.replace('alarme', '')
+            num =rec.replace('alarme','')
             num=num.strip()
             talk("alarme ativara as " + num + "horas")
             while True:
@@ -71,6 +78,11 @@ def run():
                 if site in rec:
                     sub.call(f"start opera.exe {sites[site]}",shell=True)
                     talk(f"abrindo {site}")
+            for app in programas:
+                if app in rec:
+                    talk(f"abrir{app}")
+                    os.startfile(programas[app])
+
         
         # falta melhor a busca no sistema 
         # elif 'archivo' in rec:
@@ -79,7 +91,7 @@ def run():
         #             sub.Popen([files[file]], shell=True)
         #             talk(f'abrindo {file}')
         
-        #codigo para escrever no bloco de notas 
+        #codigo para escrever no bloco de notas e o codigo so busca o que estiver na bibliotecas
         elif 'escrever' in rec:
             try:
                 with open("anotações.txt","r") as f:
@@ -90,6 +102,7 @@ def run():
         elif "termina" in rec:
             talk ("adios!")
             break
+
 def write(f):
     talk("O que voce deseja escrever?")
     rec_write=listen()
