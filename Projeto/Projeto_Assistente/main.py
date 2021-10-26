@@ -38,7 +38,7 @@ def listen():
             if name in rec:
                 rec=rec.replace(name,"") 
     except:
-        print("Erro no sistema")
+        talk("Erro no sistema")
         pass
     print(rec)
     return rec
@@ -47,8 +47,8 @@ def run():
     print("0")
     while True:
         rec=listen()
-        if "Reprodurir" in rec:#falar "falar"  depois o que voce precisa
-            music=rec.replace("video",'')
+        if "Reproduzir" in rec:#falar "falar"  depois o que voce precisa
+            music=rec.replace("Reproduzir",'')
             print('Reprodurindo'+ music)
             talk("Reproduzindo "+ music)# a voz da assistente
             pywhatkit.playonyt(music)#conexão com you_tube
@@ -100,7 +100,7 @@ def run():
                 file=open("anotações.txt","w")
                 write(file)
         elif "termina" in rec:
-            talk ("adios!")
+            talk ("ate mais tarde !!!")
             break
 
 def write(f):
