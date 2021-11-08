@@ -1,3 +1,6 @@
+
+#Nao mexer mais nesse codigo.
+
 from typing import Text
 from vosk import Model, KaldiRecognizer
 import pyaudio
@@ -36,7 +39,6 @@ def recog():
         t_news=t_news.replace('{','')
         t_news=t_news.replace('}','')
         t_news=t_news.replace('"','')
-        # t_news=t_news.replace(' ','')
         if "buscar"  in t_news:
             return t_news
         elif "alarme" in t_news:
@@ -47,24 +49,8 @@ def recog():
             return t_news
         elif "terminar" in t_news:
             return t_news
+        elif "abrir" in t_news:
+            return t_news
+        else:
+            talk("Não compriendo...")
             
-
-
-
-# t=recog()
-# print(t+' finalmente porra')
-
-
-# s = "Naze{{{{{{{}}}}}+++"
-# new_s = s[:0]+s[:4]
-# print(new_s)
-
-# # r='foda se o mundo '
-# l=['jose','luis','merma','pinedo',]
-# x=True
-
-# for i in l:
-#     if i in r:
-#         print('foi essa merda')
-#     else:
-#         print('merda de sistema')
