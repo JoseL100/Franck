@@ -32,7 +32,7 @@ def listen():
         with sr.Microphone() as source:
             print("escutando...")
             pc=listener.listen(source)
-            rec=listener.recognize_google(pc,language='pt-br')
+            rec=listener.recognize_google(pc,language='pt-BR')
             print(rec)
             rec=rec.lower()
             if name in rec:
@@ -47,8 +47,8 @@ def run():
     print("0")
     while True:
         rec=listen()
-        if "Reproduzir" in rec:#falar "falar"  depois o que voce precisa
-            music=rec.replace("Reproduzir",'')
+        if "reproduzir" in rec:#falar "falar"  depois o que voce precisa
+            music=rec.replace("reproduzir",'')
             print('Reprodurindo'+ music)
             talk("Reproduzindo "+ music)# a voz da assistente
             pywhatkit.playonyt(music)#conexão com you_tube
