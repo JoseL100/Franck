@@ -9,7 +9,7 @@ import pyttsx3
 engine=pyttsx3.init()
 
 voices=engine.getProperty('voices')
-engine.setProperty('voice',voices[-2].id)
+engine.setProperty('voice',voices[0].id)
 engine.setProperty('rate',180)
 
 def talk(text):
@@ -23,8 +23,9 @@ def recog():
     cap=pyaudio.PyAudio()
     stream = cap.open (format=pyaudio.paInt16,channels=1,rate=16000,input=True,frames_per_buffer=8192)
     stream.start_stream()
-
+    
     while True:
+        
         t=''
         data=stream.read(4096)
         if recognizer.AcceptWaveform(data):
@@ -34,23 +35,24 @@ def recog():
             for i in resul:
                 t+=i
         
-        t_news=t.replace('text','')
-        t_news=t_news.replace(':','')
-        t_news=t_news.replace('{','')
-        t_news=t_news.replace('}','')
-        t_news=t_news.replace('"','')
-        if "buscar"  in t_news:
-            return t_news
-        elif "alarme" in t_news:
-            return t_news
-        elif "reproduzir" in t_news:
-            return t_news
-        elif "escrever" in t_news:
-            return t_news
-        elif "terminar" in t_news:
-            return t_news
-        elif "abrir" in t_news:
-            return t_news
-        else:
-            talk("Não compriendo...")
+            t_news=t.replace('text','')
+            t_news=t_news.replace(':','')
+            t_news=t_news.replace('{','')
+            t_news=t_news.replace('}','')
+            t_news=t_news.replace('"','')
+            print(t_news)
+        
+            if "pesquisa"  in t_news:
+                return t_news
+            elif "alarme" in t_news:
+                    return t_news
+            elif "exibir" in t_news:
+                return t_news
+            elif "escrever" in t_news:
+                return t_news
+            elif "terminar" in t_news:
+                return t_news
+            elif "abrir" in t_news:
+                return t_news
+        
             

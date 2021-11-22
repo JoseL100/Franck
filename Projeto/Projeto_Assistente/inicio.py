@@ -1,17 +1,23 @@
+from tkinter import font
+from typing_extensions import runtime
 
 import speech_recognition as sr
-import pyttsx3, pywhatkit, wikipedia, datetime, keyboard , os 
+import pyttsx3
+import pywhatkit
+import wikipedia
+import datetime
+import keyboard
+import os
 from pygame import mixer
 import subprocess as sub
-name='lee'
-listener=sr.Recognizer()
-engine=pyttsx3.init()
+# import para criar interface
+import requests
+from tkinter import *         #
+from PIL import Image,ImageTk # interagir com imagens
 
-voices=engine.getProperty('voices')
-
-engine.setProperty('voice',voices[0].id)
-engine.setProperty('rate',185)
-
+#
+from microfone import recog
+# import interface 
 sites={
     'google':'google.com',
     'youtube':'youtube.com',
@@ -23,43 +29,36 @@ programas={
 
 
 }
+name='L'
+microfone=sr.Recognizer()
+engine=pyttsx3.init()
+
+voices=engine.getProperty('voices')
+
+engine.setProperty('voice',voices[0].id)
+engine.setProperty('rate',180)
+
 def talk(text):
     engine.say(text)
     engine.runAndWait()
 
-def listen():
-    try:
-        with sr.Microphone() as source:
-            print("escutando...")
-            pc=listener.listen(source)
-            rec=listener.recognize_google(pc,language='pt-BR')
-            print(rec)
-            rec=rec.lower()
-            if name in rec:
-                rec=rec.replace(name,"") 
-    except:
-        talk("Erro no sistema")
-        pass
-    print(rec)
-    return rec
 
 def run():
-    print("0")
     while True:
-        rec=listen()
-        if "reproduzir" in rec:#falar "falar"  depois o que voce precisa
-            music=rec.replace("reproduzir",'')
-            print('Reprodurindo'+ music)
-            talk("Reproduzindo "+ music)# a voz da assistente
+        rec=recog()
+        print(rec)        
+        if "exibir" in rec:#falar "falar"  depois o que voce precisa
+            music=rec.replace("exibir",'')
+            talk("exibir"+ music)# a voz da assistente
             pywhatkit.playonyt(music)#conexão com you_tube
-
-        elif "buscar" in rec:
-            buscar=rec.replace("buscar ", "")
+        
+        elif "pesquisa" in rec:
+            buscar=rec.replace("pesquisa", "")
             wikipedia.set_lang('pt')
             wiki=wikipedia.summary(buscar,2)
-            print(buscar+": " + wiki)
             talk (wiki)
-        #melhor o codigo 
+            # interface.write_text(buscar+": " + wiki)
+        
         elif "alarme " in rec:
             num =rec.replace('alarme','')
             num=num.strip()
@@ -82,16 +81,6 @@ def run():
                 if app in rec:
                     talk(f"abrir{app}")
                     os.startfile(programas[app])
-
-        
-        # falta melhor a busca no sistema 
-        # elif 'archivo' in rec:
-        #     for file in files:
-        #         if file in rec:
-        #             sub.Popen([files[file]], shell=True)
-        #             talk(f'abrindo {file}')
-        
-        #codigo para escrever no bloco de notas e o codigo so busca o que estiver na bibliotecas
         elif 'escrever' in rec:
             try:
                 with open("anotações.txt","r") as f:
@@ -99,18 +88,16 @@ def run():
             except FileNotFoundError as e :
                 file=open("anotações.txt","w")
                 write(file)
-        elif "termina" in rec:
-            talk ("ate mais tarde !!!")
+        elif "terminar" in rec:
+            talk ("ATE A PROXIMA!!!")
             break
-
+        
 def write(f):
     talk("O que voce deseja escrever?")
-    rec_write=listen()
+    rec_write=recog()
     f.write(rec_write+ os.linesep)
     f.close()
     talk("tudo pronto, você pode revisar")
     sub.Popen("anotações.txt",shell=True)
 
-    
-if __name__=='__main__':
-    run()
+        
