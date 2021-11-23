@@ -5,14 +5,14 @@ import requests
 from tkinter import *         
 from PIL import Image,ImageTk # interagir com imagens
 #
-import inicio
+import inicio 
 '''+++++++++++++++++++++++++++++++++++++++++++++++++++'''
 comandos='''
 Comandos para interagir:
 Escrever= Anota tudo no bloco de 
         notas.
 Exibir= Busca videos no YT.
-Buscar= Busca informação da wiki.
+Pesquisar= Busca informação da wiki.
 Alarme= Definir a hora do alarme. 
 Abrir = Abre sites ou softwares. 
 '''
@@ -55,27 +55,27 @@ window_photo= Label(main_window,image=lee_photo,bg='#4147DD',height=420,width=30
 window_photo.pack(pady=1)
 
 #bloco de comandos 
-Canvas_comandos=Canvas(bg='#41c166',height=200,width=280)
+Canvas_comandos=Canvas(bg='#41c166',height=200,width=280,border=1)
 Canvas_comandos.place(x=25,y=135)
 # largura x altura
-Canvas_comandos.create_text(140,90,text=comandos,fill='black', font='Arial 12 ',)
+Canvas_comandos.create_text(140,90,text=comandos,fill='black', font='Arial 12 ')
 
 
-text_info=Text(main_window,bg="#41c166", fg="black")
+text_info=Text(main_window,bg="#41c166", fg="black",border=6)
 text_info.place(x=600,y=135,height=200,width=280)
 #iniciar 
 button_listen= Button(main_window,text='Iniciar', fg='black',bg='#41c166',
-                        font=('Arial',10, 'bold'),width=20,height=5,command=inicio.run)
+                        font=('Arial',10, 'bold'),width=20,height=5,command=inicio.run,border=6)
 button_listen.pack(pady=2)
 
 #falar 
 button_speak= Button(main_window,text='Falar', fg='black',bg='#41c166',
-                         font=('Arial',15, 'bold'),command=read_and_talk)
+                         font=('Arial',15, 'bold'),command=read_and_talk,border=6,)
 button_speak.place(x=690,y=350, width=100,height=60)
 
 # botão de add
 button_add_files= Button(main_window,text='Adicionar', fg='black',bg='#41c166',
-                        font=('Arial',15, 'bold'),command='')
+                        font=('Arial',15, 'bold'),command='',border=6)
 button_add_files.place(x=90,y=350, width=150,height=80)
 
 

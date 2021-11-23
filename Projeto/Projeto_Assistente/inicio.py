@@ -1,6 +1,3 @@
-from tkinter import font
-from typing_extensions import runtime
-
 import speech_recognition as sr
 import pyttsx3
 import pywhatkit
@@ -11,9 +8,8 @@ import os
 from pygame import mixer
 import subprocess as sub
 # import para criar interface
-import requests
-from tkinter import *         #
-from PIL import Image,ImageTk # interagir com imagens
+
+
 
 #
 from microfone import recog
@@ -57,7 +53,7 @@ def run():
             wikipedia.set_lang('pt')
             wiki=wikipedia.summary(buscar,2)
             talk (wiki)
-            # interface.write_text(buscar+": " + wiki)
+            # write_text(buscar+": " + wiki)
         
         elif "alarme " in rec:
             num =rec.replace('alarme','')
